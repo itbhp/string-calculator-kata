@@ -7,9 +7,12 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StringCalculatorTest {
+
+    private final StringCalculator calculator = new StringCalculator();
+
     @Test
     void empty_string_should_add_to_zero() {
-        assertThat(new StringCalculator().add("")).isZero();
+        assertThat(calculator.add("")).isZero();
     }
 
     @ParameterizedTest(name = "input numbers {0} add to {1}")
@@ -20,6 +23,11 @@ public class StringCalculatorTest {
             "2022, 2022",
     })
     void single_number_string_should_add_to_that_number(String input, int sumExpected) {
-        assertThat(new StringCalculator().add(input)).isEqualTo(sumExpected);
+        assertThat(calculator.add(input)).isEqualTo(sumExpected);
+    }
+
+    @Test
+    void adding_two_numbers_should_return_their_sum() {
+        assertThat(calculator.add("12,23")).isEqualTo(35);
     }
 }
