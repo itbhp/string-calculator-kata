@@ -1,5 +1,6 @@
 package org.example;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -29,5 +30,10 @@ public class StringCalculatorTest {
     @Test
     void adding_two_numbers_should_return_their_sum() {
         assertThat(calculator.add("12,23")).isEqualTo(35);
+    }
+
+    @Test
+    void adding_unknown_number_of_numbers() {
+        assertThat(calculator.add("1,2,3,4,5,6,7,8,9")).isEqualTo(45);
     }
 }

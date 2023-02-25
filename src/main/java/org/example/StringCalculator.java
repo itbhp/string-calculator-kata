@@ -1,16 +1,17 @@
 package org.example;
 
-public class StringCalculator
-{
+import java.util.Arrays;
+
+public class StringCalculator {
     int add(String input) {
-        if (input.contains(",")){
-            String[] numbers = input.split(",");
-            return parse(numbers[0]) + parse(numbers[1]);
+        if (input.isEmpty()) {
+            return 0;
         }
-        if(!input.isEmpty()){
-            return parse(input);
-        }
-        return 0;
+
+        String[] numbers = input.split(",");
+        return Arrays.stream(numbers)
+                .mapToInt(StringCalculator::parse)
+                .sum();
     }
 
     private static int parse(String input) {
