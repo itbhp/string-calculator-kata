@@ -40,4 +40,9 @@ public class StringCalculatorTest {
     void accept_new_line_as_separator() {
         assertThat(calculator.add("1\n2,3")).isEqualTo(6);
     }
+
+    @Test
+    void accept_custom_separator() {
+        assertThat(calculator.add("//;\n1;2")).isEqualTo(3);
+    }
 }
