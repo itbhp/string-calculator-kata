@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.List;
+
 import static java.util.Arrays.stream;
 
 public class StringCalculator {
@@ -8,7 +10,7 @@ public class StringCalculator {
         if (input.isEmpty()) {
             return 0;
         }
-        if(input.startsWith("//")){
+        if (input.startsWith("//")) {
             int endIndex = input.indexOf("\n");
             var separator = input.substring(2, endIndex);
             String substring = input.substring(endIndex + 1);
@@ -17,10 +19,20 @@ public class StringCalculator {
         return sumNumbers("[\\n,]", input);
     }
 
-    private static int sumNumbers(String separator, String substring) {
-        var numbers = substring.split(separator);
-        return stream(numbers)
-                .mapToInt(Integer::parseInt)
-                .sum();
+    private static int sumNumbers(String separator, String input) {
+        var numbers = input.split(separator);
+        List<Integer> parsedNumbers = stream(numbers)
+                .map(Integer::parseInt)
+                .toList();
+        validate(parsedNumbers);
+        return  parsedNumbers.stream().mapToInt(value -> value).sum();
     }
+
+    private static void validate(List<Integer> parsedNumbers) {
+        boolean containsNegative = parsedNumbers.stream().anyMatch(n -> n < 0);
+        if (containsNegative){
+            throw new NegativeNumbersException(parsedNumbers);
+        }
+    }
+
 }

@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class StringCalculatorTest {
 
@@ -44,5 +45,12 @@ public class StringCalculatorTest {
     @Test
     void accept_custom_separator() {
         assertThat(calculator.add("//;\n1;2")).isEqualTo(3);
+    }
+
+    @Test
+    void negative_numbers_are_not_allowed() {
+        assertThatThrownBy(() -> calculator.add("1,-2,-3"))
+                .withFailMessage(() -> "Found negative numbers in 1,-2,-3")
+                .isInstanceOf(NegativeNumbersException.class);
     }
 }
