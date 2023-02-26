@@ -35,4 +35,9 @@ public class StringCalculatorTest {
     void adding_unknown_number_of_numbers() {
         assertThat(calculator.add("1,2,3,4,5,6,7,8,9")).isEqualTo(45);
     }
+
+    @Test
+    void accept_new_line_as_separator() {
+        assertThat(calculator.add("1\n2,3")).isEqualTo(6);
+    }
 }

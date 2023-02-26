@@ -8,7 +8,7 @@ public class StringCalculator {
         if (input.isEmpty()) {
             return 0;
         }
-        var numbers = input.split(",");
+        var numbers = input.split("[\\n,]");
         return stream(numbers)
                 .mapToInt(Integer::parseInt)
                 .sum();
