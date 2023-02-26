@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static java.util.Arrays.stream;
 
@@ -9,6 +10,12 @@ public class StringCalculator {
     int add(String input) {
         if (input.isEmpty()) {
             return 0;
+        }
+        if (input.startsWith("//[")) {
+            int endIndex = input.indexOf("]\n");
+            var separator = input.substring(3, endIndex);
+            String substring = input.substring(endIndex + 2);
+            return sumNumbers(separator, substring);
         }
         if (input.startsWith("//")) {
             int endIndex = input.indexOf("\n");
@@ -20,7 +27,7 @@ public class StringCalculator {
     }
 
     private static int sumNumbers(String separator, String input) {
-        var numbers = input.split(separator);
+        var numbers = input.split(Pattern.quote(separator));
         List<Integer> parsedNumbers = stream(numbers)
                 .map(Integer::parseInt)
                 .toList();

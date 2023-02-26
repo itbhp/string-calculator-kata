@@ -45,6 +45,7 @@ public class StringCalculatorTest {
     @Test
     void accept_custom_separator() {
         assertThat(calculator.add("//;\n1;2")).isEqualTo(3);
+        assertThat(calculator.add("//[***]\n1***2***3")).isEqualTo(6);
     }
 
     @Test
