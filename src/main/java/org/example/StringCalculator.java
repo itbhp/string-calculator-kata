@@ -1,6 +1,6 @@
 package org.example;
 
-import java.util.Arrays;
+import static java.util.Arrays.stream;
 
 public class StringCalculator {
     int add(String input) {
@@ -9,12 +9,9 @@ public class StringCalculator {
         }
 
         String[] numbers = input.split(",");
-        return Arrays.stream(numbers)
-                .mapToInt(StringCalculator::parse)
+        
+        return stream(numbers)
+                .mapToInt(Integer::parseInt)
                 .sum();
-    }
-
-    private static int parse(String input) {
-        return Integer.parseInt(input);
     }
 }
