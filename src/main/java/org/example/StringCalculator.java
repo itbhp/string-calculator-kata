@@ -15,7 +15,7 @@ public class StringCalculator {
             int endIndex = input.indexOf("]\n");
             var separator = input.substring(3, endIndex);
             String substring = input.substring(endIndex + 2);
-            return sumNumbers(separator, substring);
+            return sumNumbers(Pattern.quote(separator), substring);
         }
         if (input.startsWith("//")) {
             int endIndex = input.indexOf("\n");
@@ -27,7 +27,7 @@ public class StringCalculator {
     }
 
     private static int sumNumbers(String separator, String input) {
-        var numbers = input.split(Pattern.quote(separator));
+        var numbers = input.split(separator);
         List<Integer> parsedNumbers = stream(numbers)
                 .map(Integer::parseInt)
                 .toList();
