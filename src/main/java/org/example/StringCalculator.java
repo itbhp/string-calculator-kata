@@ -27,11 +27,15 @@ public class StringCalculator {
                 .map(entry -> {
                     var prefix = entry.getKey();
                     var strategy = entry.getValue();
-                    int endIndex = input.indexOf(strategy.suffix);
-                    var separator = input.substring(prefix.length(), endIndex);
-                    String substring = input.substring(endIndex + prefix.length() - 1);
-                    return sumNumbers(strategy.escape.apply(separator), substring);
+                    return sumNumbersWithCustomSeparators(input, prefix, strategy);
                 }).orElseGet(() -> sumNumbers("[\\n,]", input));
+    }
+
+    private static int sumNumbersWithCustomSeparators(String input, String prefix, SeparatorStrategy strategy) {
+        int endIndex = input.indexOf(strategy.suffix);
+        var separator = input.substring(prefix.length(), endIndex);
+        String substring = input.substring(endIndex + prefix.length() - 1);
+        return sumNumbers(strategy.escape.apply(separator), substring);
     }
 
     private static int sumNumbers(String separator, String input) {
